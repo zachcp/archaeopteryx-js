@@ -1,0 +1,29 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# archaeopteryx
+
+The goal of archaeopteryx is to wrap the wonderful [archaeopteryx.js](https://sites.google.com/site/cmzmasek/home/software/archaeopteryx-js) library and make it accessible as an htmlwidget. Currently the basics work but I will be exploring changes to the API to try to make it work with R's pipe-based workflow.
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+## basic example code
+library(archaeopteryx)
+archaeopteryx(treestring = "((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700,seal:12.00300):7.
+```
