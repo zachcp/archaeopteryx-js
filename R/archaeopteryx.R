@@ -5,11 +5,10 @@
 #' @import htmlwidgets
 #'
 #' @export
-archaeopteryx <- function(message, treestring, width = NULL, height = NULL, elementId = NULL) {
+archaeopteryx <- function(treestring, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    message = message,
     treestring=treestring
   )
 
@@ -56,7 +55,6 @@ renderArchaeopteryx <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 archaeopteryx_html <- function(id, style, class, width, height, ...) {
   list(tags$div(id = id, class = class, style = style),
-       tags$div(id = "phylogram"),
        tags$div(id = "controls0", class='ui-widget-content'))
        # tags$div(id   = sprintf("phylogram", id),
        #          style = sprintf("width:%s", width),

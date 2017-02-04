@@ -14,8 +14,10 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-        // TODO: code to render the widget, e.g.
-        el.innerText = x.message;
+
+        //var CONTROLS_0 = x.CONTROLS_0;
+        //var CONTROLS_1 = x.CONTROLS_1;
+
 
         var options = {};
         options.alignPhylogram = true;
@@ -83,8 +85,6 @@ HTMLWidgets.widget({
         settings.reCenterAfterCollapse = false;
         settings.rootOffset = 140;
 
-        //tree = archaeopteryx.parsePhyloXML(data);
-        console.log(x.treestring);
         tree = archaeopteryx.parseNewHampshire(x.treestring);
         tre  = tree;
         archaeopteryx.launch(el, tree, options={}, settings={});
