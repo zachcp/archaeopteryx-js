@@ -38,3 +38,19 @@ A few thoughts on how to improve this code (no guarantees):
 library(archaeopteryx)
 archaeopteryx(treestring = "((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700,seal:12.00300):7.
 ```
+
+## phylo XML handling
+
+```{r eval=FALSE}
+# write(x = "turtle	TAXONOMY_CODE:BACTN	TAXONOMY_ID:226186	TAXONOMY_ID_PROVIDER:ncbi	TAXONOMY_SN:Bacteroides thetaiotaomicron	SEQ_ACCESSION:29341016	SEQ_ACCESSION_SOURCE:gi	SEQ_SYMBOL:BT3701 SEQ_NAME:SusD",
+#       file="temp.txt")
+write(x = "turtle	TAXONOMY_CODE:BACTN	TAXONOMY_ID:226186	TAXONOMY_ID_PROVIDER:ncbi	TAXONOMY_SN:Bacteroides thetaiotaomicron	SEQ_ACCESSION:29341016	SEQ_ACCESSION_SOURCE:gi SEQ_NAME:SusD SEQ_SYMBOL:BT3701",
+      file="temp.txt")
+
+tree  <- parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))")
+table <- parse_mapping_file("temp.txt")
+decorate_phylogeny(tree, table)
+treestring <- tree_to_XML(tree)
+archaeopteryx(treestring=treestring)
+
+```

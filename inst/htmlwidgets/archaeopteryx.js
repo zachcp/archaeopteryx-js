@@ -85,7 +85,8 @@ HTMLWidgets.widget({
         settings.reCenterAfterCollapse = false;
         settings.rootOffset = 140;
 
-        tree = archaeopteryx.parseNewHampshire(x.treestring);
+        //tree = archaeopteryx.parseNewHampshire(x.treestring);
+        tree = archaeopteryx.parsePhyloXML(x.treestring);
         tre  = tree;
         archaeopteryx.launch(el, tree, options={}, settings={});
 
