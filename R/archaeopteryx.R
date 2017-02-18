@@ -3,6 +3,7 @@
 #' <Add Description>
 #'
 #' @import htmlwidgets
+#' @import htmltools
 #'
 #' @export
 archaeopteryx <- function(treestring, width = NULL, height = NULL, elementId = NULL) {
