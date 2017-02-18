@@ -49,7 +49,7 @@ tree_to_XML <- function(phylogeny) {
 #' use forester's decorate code ot ad informaiton to the phlogeny
 #'
 #' @param phylogeny Required. A Forester Phylogeny Object
-#' @param phylogeny Required. A Forester Phylogeny Object
+#' @param metadata Required. Metadata table.
 #' @export
 decorate_phylogeny <- function(phylogeny, metadata) {
   if (!.jclass(phylogeny) ==  "org.forester.phylogeny.Phylogeny") {
@@ -62,22 +62,23 @@ decorate_phylogeny <- function(phylogeny, metadata) {
 
 #' add_node_property
 #'
-#' @param tree
-#' @param nodeid
-#' @param property
-#' @param value
+#' a property to a node based on its name.
+#'
+#' @param phylogeny Required. A Forester Phylogeny Object.
+#' @param nodeid Required. The name of the taget node.
+#' @param property Required. Name of the property to add.
+#' @param value Required. Value of the proerty to add.
 #' @export
-add_node_property <- function(tree, nodeid, property, value) {
+add_node_property <- function(phylogeny, nodeid, property, value) {
   pmap <- J("org.forester.phylogeny.data.PropertiesMap")
+  prop    <- J("org/forester/phylogeny/data/Property")
+  applyto <- J("org.forester.phylogeny.data.Property$AppliesTo")$NODE
 
-  node      <- tree$getNode(nodeid)
+  node      <- phylogeny$getNode(nodeid)
   nodedata  <- node$getNodeData()
   nodeprops <- nodedata$getProperties()
 
   if (is.null(nodeprops)) nodeprops <- new(pmap)
-
-  prop    <- J("org/forester/phylogeny/data/Property")
-  applyto <- J("org.forester.phylogeny.data.Property$AppliesTo")$NODE
 
   # ref,  value, unit, datatype, applies_to
   #new(property,  "ref:test",  "that",  "datatype:200", "xsd:string", node)
@@ -91,7 +92,57 @@ add_node_property <- function(tree, nodeid, property, value) {
   # can expand this to add properties
   nodeprops$addProperty(p1)
   nodedata$setProperties(nodeprops)
+
+  #return phylogeny to facilitate chaining
+  phylogeny
 }
 
+#' add_node_properties
+#'
+#' add multiple properties to nodes in a Phylogeny
+#'
+#' @param phylogeny Required. A Forester Phylogeny Object.
+#' @param properties Required. A three column, tidy data frame where the colums represent
+#' the node name, the property, and the value. Will apply each property/value pair to the
+#' specified node.
+add_node_properties <- function(phylogeny, properties) {
+  pmap <- J("org.forester.phylogeny.data.PropertiesMap")
+  prop    <- J("org/forester/phylogeny/data/Property")
+  applyto <- J("org.forester.phylogeny.data.Property$AppliesTo")$NODE
 
+  names(properties) <- c("node","property", "value")
+
+  nodedfs <- split(properties, properties$node)
+
+  for (nodedf in nodedfs) {
+    print(nodedf)
+    nodeid    <- unique(nodedf$node)
+    print(nodeid)
+    node      <- phylogeny$getNode(nodeid)
+    print(node)
+    nodedata  <- node$getNodeData()
+    nodeprops <- nodedata$getProperties()
+
+    if (is.null(nodeprops)) nodeprops <- new(pmap)
+
+    mapply(function(node, property, value) {
+     p1 <- new(prop,
+               paste0("ref:", property),
+               value,
+               "unit:string",
+               "xsd:string",
+               applyto)
+
+     nodeprops$addProperty(p1)
+     },
+    nodedf$node,
+    nodedf$property,
+    nodedf$value
+    )
+
+   nodedata$setProperties(nodeprops)
+ }
+
+ phylogeny
+}
 

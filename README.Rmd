@@ -66,3 +66,15 @@ print(tree_to_XML(tree))
 
 ```
 
+# Adorn Trees with Properties
+
+Using a dataframe with many properties
+
+```{r}
+tree <- add_node_properties(parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))"),
+                    data.frame(a = c("turtle","turtle","rayfinfish","frog"),
+                               b = c("size","color","size","size"),
+                               c = c("big","red","small","tiny"),
+                               stringsAsFactors = FALSE))
+tree_to_XML(tree)
+```
