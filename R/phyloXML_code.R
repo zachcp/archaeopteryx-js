@@ -84,13 +84,13 @@ add_node_property <- function(tree, nodeid, property, value) {
   p1 <- new(prop,
             paste0("ref:", property),
             value,
-            "unit:NA",
+            "unit:string",
             "xsd:string",
             applyto)
 
   # can expand this to add properties
   nodeprops$addProperty(p1)
-  nodedata$setProperties(pmap)
+  nodedata$setProperties(nodeprops)
 }
 
 
