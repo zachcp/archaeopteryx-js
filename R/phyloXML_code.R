@@ -3,20 +3,6 @@
 #
 #
 
-# write(x = "turtle	TAXONOMY_CODE:BACTN	TAXONOMY_ID:226186	TAXONOMY_ID_PROVIDER:ncbi	TAXONOMY_SN:Bacteroides thetaiotaomicron	SEQ_ACCESSION:29341016	SEQ_ACCESSION_SOURCE:gi	SEQ_SYMBOL:BT3701 SEQ_NAME:SusD",
-#       file="temp.txt")
-write(x = "turtle	TAXONOMY_CODE:BACTN	TAXONOMY_ID:226186	TAXONOMY_ID_PROVIDER:ncbi	TAXONOMY_SN:Bacteroides thetaiotaomicron	SEQ_ACCESSION:29341016	SEQ_ACCESSION_SOURCE:gi SEQ_NAME:SusD SEQ_SYMBOL:BT3701",
-      file="temp.txt")
-
-tree  <- parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))")
-table <- parse_mapping_file("temp.txt")
-decorate_phylogeny(tree, table)
-archaeopteryx(treestring=treestring)
-
-tree
-treestring <- tree_to_XML(tree)
-
-
 
 
 #' parse the mapping file
@@ -52,3 +38,46 @@ decorate_phylogeny <- function(phylogeny, metadata) {
   PhyDec   <- J("org.forester.tools.PhylogenyDecorator")
   PhyDec$decorate(phylogeny, metadata, FALSE)
 }
+
+#' decorate_node
+#'
+decorate_node <- funciton(tree, nodeid, property, value, appliesto="node") {
+  pmap <- J("org.forester.phylogeny.data.PropertiesMap")
+
+  node      <- tree$getNode(nodeid)
+  nodedata  <- node$getNodeData()
+  nodeprops <- nodedata$getProperties()
+
+  if (is.null(nodeprops)) nodeprops <- new(pmap)
+
+  prop     <- J("org/forester/phylogeny/data/Property")
+  applyto <- J("org.forester.phylogeny.data.Property$AppliesTo")$NODE
+
+  # ref,  value, unit, datatype, applies_to
+  #new(property,  "ref:test",  "that",  "datatype:200", "xsd:string", node)
+  p1 <- new(prop,
+            paste0("ref:", property),
+            value,
+            "unit:NA",
+            "xsd:string",
+            applyto)
+
+  # can expand this to add properties
+  nodeprops$addProperty(p1)
+  nodedata$setProperties(pmap)
+}
+
+
+
+# Collapse subtree
+# https://github.com/cmzmasek/forester/blob/master/forester/java/src/org/forester/phylogeny/PhylogenyMethods.java
+# collapseSubtreeStructure
+# setScientificName
+# setTaxonomyCode
+# addMolecularSeqsToTree
+# setBranchColorValue
+#
+# org.forester.phylogeny.data.NodeData
+# setNodename
+# setProperties
+#
