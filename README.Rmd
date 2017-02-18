@@ -33,17 +33,19 @@ A few thoughts on how to improve this code (no guarantees):
 ## Simple Usage.
 
 
-```{r eval=FALSE}
+```{r, eval=FALSE}
 ## basic example code
 library(archaeopteryx)
-archaeopteryx(treestring = "((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700,seal:12.00300):7.
+
+tree       <- parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))")
+treestring <- tree_to_XML(tree)
+archaeopteryx(treestring)
+
 ```
 
 ## phylo XML handling
 
-```{r eval=FALSE}
-# write(x = "turtle	TAXONOMY_CODE:BACTN	TAXONOMY_ID:226186	TAXONOMY_ID_PROVIDER:ncbi	TAXONOMY_SN:Bacteroides thetaiotaomicron	SEQ_ACCESSION:29341016	SEQ_ACCESSION_SOURCE:gi	SEQ_SYMBOL:BT3701 SEQ_NAME:SusD",
-#       file="temp.txt")
+```{r, eval=FALSE}
 write(x = "turtle	TAXONOMY_CODE:BACTN	TAXONOMY_ID:226186	TAXONOMY_ID_PROVIDER:ncbi	TAXONOMY_SN:Bacteroides thetaiotaomicron	SEQ_ACCESSION:29341016	SEQ_ACCESSION_SOURCE:gi SEQ_NAME:SusD SEQ_SYMBOL:BT3701",
       file="temp.txt")
 
@@ -51,6 +53,16 @@ tree  <- parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))")
 table <- parse_mapping_file("temp.txt")
 decorate_phylogeny(tree, table)
 treestring <- tree_to_XML(tree)
+
 archaeopteryx(treestring=treestring)
+```
+
+## Adorn Trees with Properties
+
+```{r}
+print(tree_to_XML(tree))
+add_node_property(tree, "turtle", "size", "300")
+print(tree_to_XML(tree))
 
 ```
+
