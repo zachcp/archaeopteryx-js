@@ -78,3 +78,30 @@ tree <- add_node_properties(parse_newick("(mammal,(turtle,rayfinfish,(frog,salam
                                stringsAsFactors = FALSE))
 tree_to_XML(tree)
 ```
+
+```{r}
+tree
+n1  <- tree$getNode("turtle")
+nd1 <- n1$getNodeData()
+nvd <- nd1$getNodeVisualData()
+
+bd <- n1$getBranchData()
+bd
+color <- J("java.awt.Color")
+
+bcolor <- .jnew("org.forester.phylogeny.data.BranchColor", red)
+red <- color$RED
+
+bd$setBranchColor(bcolor)
+
+archaeopteryx(treestring=tree_to_XML(tree))
+```
+
+```{r}
+
+t1   <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
+dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), size=c(1,2,3,4,5))
+phyJ <- create_phyloJ(phylo=t1, annotation=dt)
+
+to
+```
