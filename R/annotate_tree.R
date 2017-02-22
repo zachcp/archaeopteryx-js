@@ -1,7 +1,7 @@
 #' Annotate a Forester Tree
 #'
 #' @importFrom data.table melt
-#'
+#' @export
 setGeneric("annotate_tree", function(phyJ) standardGeneric("annotate_tree") )
 #'
 setMethod("annotate_tree", "phyloJ", function(phyJ) {
