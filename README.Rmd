@@ -107,8 +107,24 @@ dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"),
 phyJ <- create_phyloJ(phylo=t1, annotation=dt)
 phyJ <- set_clade_color(phyJ, "Node3", "test")
 
+t2 <- phyJ@phy_tree
+
 treestring <- write_phyloXML(phyJ@phytreeJ)
 archaeopteryx(treestring = treestring)
 
+
+p4 <- as(t2, "phylo4")
+
+mrca <- get_MRCA(phyJ, tips=c("frog", "turtle"))
+mrca
+
+phylobase::MRCA(t2, "frog", "turtle")
+
+phylobase::getNodeName()
+
+
+phylobase::getNode(p4, 7)
+names()
+ape::getN
 
 ```
