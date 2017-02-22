@@ -100,8 +100,15 @@ archaeopteryx(treestring=tree_to_XML(tree))
 ```{r}
 
 t1   <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
-dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), size=c(1,2,3,4,5))
-phyJ <- create_phyloJ(phylo=t1, annotation=dt)
+dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), 
+                   size=c(1,2,3,4,5),
+                   scale = c(2,3,4,5,4))
 
-to
+phyJ <- create_phyloJ(phylo=t1, annotation=dt)
+phyJ <- set_clade_color(phyJ, "Node3", "test")
+
+treestring <- write_phyloXML(phyJ@phytreeJ)
+archaeopteryx(treestring = treestring)
+
+
 ```
