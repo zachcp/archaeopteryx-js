@@ -2,7 +2,7 @@
 #'
 #' @importFrom data.table melt
 #'
-setGeneric("annotate_tree", function(phoJ), standardGeneric("annotate_tree") )
+setGeneric("annotate_tree", function(phyJ) standardGeneric("annotate_tree") )
 #'
 setMethod("annotate_tree", "phyloJ", function(phyJ) {
   annotationdt <- phyJ@phy_data
@@ -10,7 +10,7 @@ setMethod("annotate_tree", "phyloJ", function(phyJ) {
 
   annotationdt <- melt(annotationdt, id.vars = "nodes")
 
-  phyJtree <- add_node_properties(phyJtree,  properties=annotationdt)
+  phyJtree <- add_node_properties(phyJtree, properties=annotationdt)
 
   phyJ@phytreeJ <- phyJtree
 
