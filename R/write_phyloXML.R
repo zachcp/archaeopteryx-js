@@ -13,7 +13,7 @@ setMethod("write_phyloXML", "jobjRef", function(tree) {
   }
   zero      <- .jnew("java.lang.Integer", "0")
   phyWriter <- .jnew("org.forester.io.writers.PhylogenyWriter")
-  phyWriter$toPhyloXML(phylogeny, zero$intValue())$toString()
+  phyWriter$toPhyloXML(tree, zero$intValue())$toString()
 })
 #'
 #'
