@@ -85,13 +85,10 @@ n1  <- tree$getNode("turtle")
 nd1 <- n1$getNodeData()
 nvd <- nd1$getNodeVisualData()
 
-bd <- n1$getBranchData()
-bd
-color <- J("java.awt.Color")
-
+bd     <- n1$getBranchData()
+color  <- J("java.awt.Color")
 bcolor <- .jnew("org.forester.phylogeny.data.BranchColor", red)
-red <- color$RED
-
+red    <- color$RED
 bd$setBranchColor(bcolor)
 
 archaeopteryx(treestring=tree_to_XML(tree))
@@ -99,32 +96,53 @@ archaeopteryx(treestring=tree_to_XML(tree))
 
 ```{r}
 
+library(data.table)
 t1   <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
 dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), 
                    size=c(1,2,3,4,5),
                    scale = c(2,3,4,5,4))
 
-phyJ <- create_phyloJ(phylo=t1, annotation=dt)
-phyJ <- set_clade_color(phyJ, "Node3", "test")
+phyJ  <- create_phyloJ(phylo=t1, annotation=dt)
+phyJtree <- phyJ@phytreeJ
+#n1  <- phyJtree$getNode("turtle")
+#n1$getName()
+#phyJ  <- set_clade_color(phyJ, "Node3", "test")
+mrca  <- get_MRCA(phyJ, tips=c("frog", "turtle"))
 
-t2 <- phyJ@phy_tree
+color   <- J("java.awt.Color")
+red      <- color$RED
+
+phyJ  <- set_clade_color(phyJ, mrca, red)
 
 treestring <- write_phyloXML(phyJ@phytreeJ)
 archaeopteryx(treestring = treestring)
 
-
-p4 <- as(t2, "phylo4")
-
-mrca <- get_MRCA(phyJ, tips=c("frog", "turtle"))
-mrca
-
-phylobase::MRCA(t2, "frog", "turtle")
-
-phylobase::getNodeName()
+```
 
 
-phylobase::getNode(p4, 7)
-names()
-ape::getN
+```{r}
+iter1 <- J("org.forester.phylogeny.iterators.LevelOrderTreeIterator")
+iter2 <- new(iter1, node1)
+iter2$hasNext()
+iter2$getNext()
 
+
+## this is how you iterate over Jva objects from R
+n3 <- .jrcall(iter2,"next");
+n3
+
+while(.jrcall(an_iter,"hasNext")){
+  key <- .jrcall(an_iter,"next");
+  aList[[key]] <- .jrcall(hm,"get",key)
+}
+
+
+.jcall(iter2,  "org/forester/phylogeny/PhylogenyNode", "next")
+.jcall(iter2,  "[org/forester/phylogeny/PhylogenyNode", "next")
+.jcall(iter2,  "Ljava.lang.Object", "next")
+.jcall(iter2,  "S", "toString")
+.jcall(iter2,  "V", "remove")
+?.jcall
+
+.jmethods(iter2)
 ```

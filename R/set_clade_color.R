@@ -1,9 +1,9 @@
 #' set_clade_color
 #'
 #'
-#' @param phyJ Required.
-#' @param nodeid Required.
-#' @param color Required.
+#' @param phyJ Required. a \link{phyloJ} class object
+#' @param nodeid Required. Name of a node.
+#' @param color Required. a java.awt.Color
 #'
 #' https://github.com/cmzmasek/forester/blob/b61cc2dcede0bede317db362472333115756b8c6/forester/java/src/org/forester/phylogeny/data/BranchData.java
 #' https://github.com/cmzmasek/forester/blob/b61cc2dcede0bede317db362472333115756b8c6/forester/java/src/org/forester/phylogeny/data/BranchColor.java
@@ -13,26 +13,24 @@
 #'
 set_clade_color <- function(phyJ, nodeid, color) {
 
-  # set color: to remove
-  colorr   <- J("java.awt.Color")
-  red      <- colorr$RED
-  bcolor   <- .jnew("org.forester.phylogeny.data.BranchColor", red)
-
   phyJtree   <- phyJ@phytreeJ
   node       <- phyJtree$getNode(nodeid)
 
   # apply color to node
+  bcolor     <- .jnew("org.forester.phylogeny.data.BranchColor", color)
   branchdata <- node$getBranchData()
   branchdata$setBranchColor(bcolor)
 
   # apply color to all descendants
-  nodes <- node$getAllDescendants()
+  nodes    <- node$getAllDescendants()
+  iternode <- .jnew("org.forester.phylogeny.iterators.LevelOrderTreeIterator", node)
 
-  lapply(nodes, FUN = function(node){
-    #node       <- phyJtree$getNode(nodeid)
-    branchdata <- node$getBranchData()
-    branchdata$setBranchColor(bcolor)
-  })
+  while(.jrcall(iternode,"hasNext")) {
+    subnode    <- .jrcall(iternode,"next")
+    branchdata <- .jcall(subnode, "Lorg/forester/phylogeny/data/BranchData;","getBranchData")
+    .jcall(branchdata, "V", "setBranchColor", bcolor)
+
+  }
 
   phyJ@phytreeJ <- phyJtree
 
