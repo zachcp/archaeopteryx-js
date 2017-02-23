@@ -7,10 +7,10 @@
 #' @export
 create_phyloJ <- function(phylo, annotation) {
 
-  phylomessage <- "the phylo input must be a phylogenetic object of class 'phylo'"
-  if (!inherits(phylo, "phylo")) stop(phylomessage)
+  phylomessage <- "the phylo input must be a phylogenetic object of class 'phylo' or 'phylo4'"
+  if (!class(phylo) %in% c("phylo", "phylo4")) stop(phylomessage)
 
-  annotmessage <- "annotation must be a data.table where the first columnis labelled 'nodes' "
+  annotmessage <- "annotation must be a data.table where the first column is labelled 'nodes' "
   if (!inherits(annotation, "data.table")) stop(annotmessage)
   if (!colnames(annotation)[1] == "nodes") stop(annotmessage)
 
@@ -20,9 +20,16 @@ create_phyloJ <- function(phylo, annotation) {
   if (!all(nodenames %in% tiplabels)) stop(nodematchmessage)
 
   # label all internal nodes
-  phylo <-  makeNodeLabel(phylo)
+  if (class(phylo) == "phylo") {
+    phylo <-  makeNodeLabel(phylo)
+    phylo <- as(phylo, "phylo4")
+  } else {
+    phylo <- as(phylo, "phylo")
+    phylo <- makeNodeLabel(phylo)
+    phylo <- as(phylo, "phylo4")
+  }
 
-  phytreeJ <- parse_newick(write.tree(phylo))
+  phytreeJ <- parse_newick(write.tree(as(phylo, "phylo")))
 
   new("phyloJ", phy_tree=phylo, phy_data=annotation, phytreeJ=phytreeJ)
 
