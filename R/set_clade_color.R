@@ -1,5 +1,6 @@
 #' set_clade_color
 #'
+#' given a nodeid and a java.awt.Color apply the color to all descendants
 #'
 #' @param phyJ Required. a \link{phyloJ} class object
 #' @param nodeid Required. Name of a node.
