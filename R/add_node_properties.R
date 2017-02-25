@@ -9,9 +9,9 @@
 #'
 #' @export
 add_node_properties <- function(phylogeny, properties) {
-  pmap    <- J("org.forester.phylogeny.data.PropertiesMap")
+  pmap    <- J("org/forester/phylogeny/data/PropertiesMap")
   prop    <- J("org/forester/phylogeny/data/Property")
-  applyto <- J("org.forester.phylogeny.data.Property$AppliesTo")$NODE
+  applyto <- J("org/forester/phylogeny/data/Property$AppliesTo")$NODE
 
   names(properties) <- c("node","property", "value")
 
