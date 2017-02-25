@@ -1,7 +1,5 @@
 #' Create Node Visualizations
 #'
-#' @importFrom data.table melt
-#'
 create_node_visualizations <- function(phyJ) {
 
   annotationdt <- phyJ@phy_data
