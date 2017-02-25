@@ -16,7 +16,7 @@ setGeneric("write_phyloXML", function(phylogeny) standardGeneric("write_phyloXML
 #' @rdname write_phyloXML-methods
 #' @export
 setMethod("write_phyloXML", "jobjRef", function(phylogeny) {
-  print(.jclass(phylogeny))
+
   if (!.jclass(phylogeny) == "org.forester.phylogeny.Phylogeny") {
     stop(" write_phyloXML can only act on tree objects. This Java object is not of the class org.forester.phylogeny.Phylogeny")
   }
