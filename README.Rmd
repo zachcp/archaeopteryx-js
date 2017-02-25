@@ -36,96 +36,46 @@ A few thoughts on how to improve this code (no guarantees):
 ```{r, eval=FALSE}
 ## basic example code
 library(archaeopteryx)
-
-tree       <- parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))")
-treestring <- tree_to_XML(tree)
-archaeopteryx(treestring)
-
-```
-
-## phylo XML handling
-
-```{r, eval=FALSE}
-write(x = "turtle	TAXONOMY_CODE:BACTN	TAXONOMY_ID:226186	TAXONOMY_ID_PROVIDER:ncbi	TAXONOMY_SN:Bacteroides thetaiotaomicron	SEQ_ACCESSION:29341016	SEQ_ACCESSION_SOURCE:gi SEQ_NAME:SusD SEQ_SYMBOL:BT3701",
-      file="temp.txt")
-
-tree  <- parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))")
-table <- parse_mapping_file("temp.txt")
-decorate_phylogeny(tree, table)
-treestring <- tree_to_XML(tree)
-
-archaeopteryx(treestring=treestring)
-```
-
-## Adorn Trees with Properties
-
-```{r}
-print(tree_to_XML(tree))
-add_node_property(tree, "turtle", "size", "300")
-print(tree_to_XML(tree))
-
-```
-
-# Adorn Trees with Properties
-
-Using a dataframe with many properties
-
-```{r}
-tree <- add_node_properties(parse_newick("(mammal,(turtle,rayfinfish,(frog,salamander)))"),
-                    data.frame(a = c("turtle","turtle","rayfinfish","frog"),
-                               b = c("size","color","size","size"),
-                               c = c("big","red","small","tiny"),
-                               stringsAsFactors = FALSE))
-tree_to_XML(tree)
-```
-
-```{r}
-tree
-n1  <- tree$getNode("turtle")
-nd1 <- n1$getNodeData()
-nvd <- nd1$getNodeVisualData()
-
-bd     <- n1$getBranchData()
-color  <- J("java.awt.Color")
-bcolor <- .jnew("org.forester.phylogeny.data.BranchColor", red)
-red    <- color$RED
-bd$setBranchColor(bcolor)
-
-archaeopteryx(treestring=tree_to_XML(tree))
-```
-
-```{r}
-
+library(ape)
 library(data.table)
 
-t1   <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
+tree <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
+phyJ <- create_phyloJ(tree)
+archaeopteryx(phyJ)
+```
+
+
+```{r}
+t1   <- read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
 dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), 
                    size=c(1,2,3,4,5),
-                   scale = c(2,3,4,5,4))
+                   scale = c("a","b","c","d","d"))
 
-phyJ     <- create_phyloJ(phylo=t1, annotation=dt)
-phyJtree <- phyJ@phytreeJ
-mrca     <- get_MRCA(phyJ, tips=c("frog", "turtle"))
 red      <- J("java.awt.Color")$RED
-phyJ     <- set_clade_color(phyJ, mrca, red)
-
-treestring <- write_phyloXML(phyJ@phytreeJ)
-archaeopteryx(treestring = treestring)
+phyJ     <- create_phyloJ(phylo=t1, annotation=dt)
+mrca     <- get_MRCA(phyJ, tips=c("frog", "turtle"))
+set_clade_color(phyJ, mrca, red)
+archaeopteryx(phyJ)
 
 ```
 
 
 ```{r}
-library(ape)
 data(bird.families)
-bird.families$tip.label
 phyJ <- create_phyloJ(bird.families)
 mrca1 <- get_MRCA(phyJ, c("Pardalotidae", "Centropidae"))
-mrca2 <- get_MRCA(phyJ, c("Cinclidae", "Nectariniidae"))
-red      <- J("java.awt.Color")$RED
+mrca2 <- get_MRCA(phyJ, c("Laridae", "Thinocoridae"))
+red     <- J("java.awt.Color")$RED
 blue    <- J("java.awt.Color")$BLUE
 set_clade_color(phyJ, mrca1, red)
 set_clade_color(phyJ, mrca2, blue)
-treestring <- write_phyloXML(phyJ@phytreeJ)
-archaeopteryx(treestring = treestring)
+archaeopteryx(phyJ)
+```
+
+```{r}
+annotdt <- data.table(nodes=bird.families$tip.label)
+annotdt[, alph := .(substr(nodes,start = 1, stop=1))]
+annotdt
+phyJ <- create_phyloJ(bird.families, annotation = annotdt)
+archaeopteryx(phyJ)
 ```

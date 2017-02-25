@@ -1,4 +1,4 @@
-#' add_node_properties
+  #' add_node_properties
 #'
 #' add multiple properties to nodes in a Phylogeny
 #'
@@ -26,7 +26,7 @@ add_node_properties <- function(phylogeny, properties) {
     if (is.null(nodeprops)) nodeprops <- new(pmap)
 
     mapply(function(property, value) {
-        p1 <- new(prop, paste0("ref:", property), as.character(value), "unit:string", "xsd:string",applyto)
+        p1 <- new(prop, paste0("ref:", property), as.character(value), "unit:string", "xsd:string" ,applyto)
         nodeprops$addProperty(p1)
       },
       nodedf$property,
