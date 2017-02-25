@@ -2,9 +2,7 @@
 #'
 #' @importFrom data.table melt
 #' @export
-setGeneric("annotate_tree", function(phyJ) standardGeneric("annotate_tree") )
-#'
-setMethod("annotate_tree", "phyloJ", function(phyJ) {
+annotate_tree <- function(phyJ) {
   annotationdt <- phyJ@phy_data
   phyJtree     <- phyJ@phytreeJ
 
@@ -16,4 +14,4 @@ setMethod("annotate_tree", "phyloJ", function(phyJ) {
 
   phyJ
 
-})
+}
