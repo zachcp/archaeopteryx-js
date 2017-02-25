@@ -13,7 +13,7 @@ add_node_property <- function(phylogeny, nodeid, property, value) {
 
   #https://sites.google.com/site/cmzmasek/home/software/archaeopteryx/documentation#TOC-To-color-one-subtree
 
-  pmap <- J("org.forester.phylogeny.data.PropertiesMap")
+  pmap    <- J("org.forester.phylogeny.data.PropertiesMap")
   prop    <- J("org/forester/phylogeny/data/Property")
   applyto <- J("org.forester.phylogeny.data.Property$AppliesTo")$NODE
 

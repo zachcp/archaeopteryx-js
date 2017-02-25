@@ -18,13 +18,13 @@ set_clade_color <- function(phyJ, nodeid, color) {
   node       <- phyJtree$getNode(nodeid)
 
   # apply color to node
-  bcolor     <- .jnew("org.forester.phylogeny.data.BranchColor", color)
+  bcolor     <- .jnew("org/forester/phylogeny/data/BranchColor", color)
   branchdata <- node$getBranchData()
   branchdata$setBranchColor(bcolor)
 
   # apply color to all descendants
   nodes    <- node$getAllDescendants()
-  iternode <- .jnew("org.forester.phylogeny.iterators.LevelOrderTreeIterator", node)
+  iternode <- .jnew("org/forester/phylogeny/iterators/LevelOrderTreeIterator", node)
 
   while(.jrcall(iternode,"hasNext")) {
     subnode    <- .jrcall(iternode,"next")

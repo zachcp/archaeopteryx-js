@@ -7,8 +7,8 @@
 #' @seealso \url{https://sites.google.com/site/cmzmasek/home/software/forester/decorator}
 #'
 parse_mapping_file <- function(fname) {
-  file    <- .jnew("java.io.File", fname)
-  PhyDec  <- J("org.forester.tools.PhylogenyDecorator")
+  file    <- .jnew("java/io/File", fname)
+  PhyDec  <- J("org/forester/tools/PhylogenyDecorator")
 
   PhyDec$parseMappingTable(file)
 }
