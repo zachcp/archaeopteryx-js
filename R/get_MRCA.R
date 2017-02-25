@@ -5,7 +5,7 @@
 #' @importFrom phylobase MRCA
 #' @export
 get_MRCA <- function(phyJ, tips) {
-  if (!inherits(phyJ, "phyloJ")) stop("This functiononly works on pjyloJ objects")
+  if (!inherits(phyJ, "phyloJ")) stop("This function only works on phyloJ objects")
 
   phy  <- phyJ@phy_tree
   mrca <- MRCA(phy, tips)
