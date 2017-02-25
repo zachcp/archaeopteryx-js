@@ -16,38 +16,9 @@ archaeopteryx <- function(phyJ, width = NULL, height = NULL, elementId = NULL) {
 
   if (!inherits(phyJ, "phyloJ")) stop("you must use a phyloJ object to use this function")
 
-  # annotate nodes
-  phyJ <- annotate_tree(phyJ)
-
-  # nodeVisualizations['nodenum'] = {
-  #   label: 'nodenum',
-  #   description: 'the host of the virus',
-  #   field: null,
-  #   cladeRef: decorator + 'nodenum',
-  #   regex: false,
-  #   shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-  #   colors: 'category20',
-  #   sizes: null
-  # };
-
-  nodeviz <- list()
-
-  nodeviz["nodenum"] <-
-    list(nodenum=list(
-      label="nodenum",
-      description="the host of the virus",
-      field=NULL,
-      cladeRef=paste0("ref:nodenum"),
-      regex = FALSE,
-      shapes =list('square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'),
-      colors = 'category20',
-      sizes = NULL))
-
-
-
-  #jsonlite::toJSON(nodeviz, auto_unbox = T, null = 'null')
-
-
+  # annotate nodes and create corresponding node vizualizations
+  phyJ    <- annotate_tree(phyJ)
+  nodeviz <- create_node_visualizations(phyJ)
 
   # forward options using x
   params = list(
