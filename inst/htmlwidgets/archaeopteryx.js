@@ -14,11 +14,6 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-
-        //var CONTROLS_0 = x.CONTROLS_0;
-        //var CONTROLS_1 = x.CONTROLS_1;
-
-
         var options = {};
         options.alignPhylogram = true;
         options.backgroundColorDefault = '#ffffff';
@@ -41,7 +36,7 @@ HTMLWidgets.widget({
         options.nameForPngDownload = 'archaeopteryx-js.png';
         options.nameForSvgDownload = 'archaeopteryx-js.svg';
         options.nodeSizeDefault = 3;
-        options.phylogram = false;
+        options.phylogram = true;
         options.searchIsCaseSensitive = false;
         options.searchIsPartial = true;
         options.searchUsesRegex = false;
@@ -66,6 +61,8 @@ HTMLWidgets.widget({
         options.showTaxonomyRank = false;
         options.showTaxonomyScientificName = true;
         options.showTaxonomySynonyms = false;
+        options.showNodeName = true;
+        options.showNodeVisualizations = true;
 
         var settings = {};
         settings.border = '1px solid #909090';
@@ -78,17 +75,34 @@ HTMLWidgets.widget({
         settings.displayWidth = width;
         settings.enableDownloads = true;
         settings.enableBranchVisualizations = false;
-        settings.enableCollapseByBranchLenghts = false;
+        settings.enableCollapseByBranchLengths = false;
         settings.enableCollapseByFeature = true;
-        settings.enableNodeVisualizations = false;
+        settings.enableNodeVisualizations = true;
         settings.nhExportWriteConfidences = true;
         settings.reCenterAfterCollapse = false;
         settings.rootOffset = 140;
 
+        // what is this decorator doing?
+        var decorator = 'ref:';
+
+        var nodeVisualizations = {};
+
+        nodeVisualizations['nodenum'] = {
+            label: 'nodenum',
+            description: 'the host of the virus',
+            field: null,
+            cladeRef: decorator + 'nodenum',
+            regex: false,
+            shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+            colors: 'category20',
+            sizes: null
+        };
+
+
         //tree = archaeopteryx.parseNewHampshire(x.treestring);
         tree = archaeopteryx.parsePhyloXML(x.treestring);
         tre  = tree;
-        archaeopteryx.launch(el, tree, options={}, settings={});
+        archaeopteryx.launch(el, tree, options=options, settings=settings, nodeVisualizations=nodeVisualizations);
 
       },
 

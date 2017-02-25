@@ -1,16 +1,27 @@
-#' <Add Title>
+#' archaeopteryx
 #'
-#' <Add Description>
+#' create an interactive HTML widget using the archaeopteryx JS library
+#'
+#' @param  phyJ Required.  A \link{phyloJ} class object.
+#' @param width Optional. HTMLWidget width.
+#' @param height Optional. HTMLWidget height.
+#' @param elementID Optional. DOM element.
 #'
 #' @import htmlwidgets
 #' @import htmltools
 #'
+#' @seealso \url{https://sites.google.com/site/cmzmasek/home/software/archaeopteryx-js}
 #' @export
-archaeopteryx <- function(treestring, width = NULL, height = NULL, elementId = NULL) {
+archaeopteryx <- function(phyJ, width = NULL, height = NULL, elementId = NULL) {
+
+  if (!inherits(phyJ, "phyloJ")) stop("you must use a phyloJ object to use this function")
+
+  # annotate nodes
+  phyJ <- annotate_tree(phyJ)
 
   # forward options using x
   x = list(
-    treestring=treestring
+    treestring=write_phyloXML(phyJ)
   )
 
   # create widget
@@ -56,10 +67,8 @@ renderArchaeopteryx <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 archaeopteryx_html <- function(id, style, class, width, height, ...) {
   list(tags$div(id = id, class = class, style = style),
-       tags$div(id = "controls0", class='ui-widget-content'))
-       # tags$div(id   = sprintf("phylogram", id),
-       #          style = sprintf("width:%s", width),
-       #          class = sprintf("%s-widget-content ui-widget-content", class),
-       #          HTML(sprintf("<center><label style='padding-right:5px' for='%s-select'></label><select id='%s-select' style='visibility:visible;'></select></center>", id, id))))
+       tags$div(id = "phylogram1"),
+       tags$div(id = "controls0", class='ui-widget-content'),
+       tags$div(id = "controls1", class='ui-widget-content'))
 }
 

@@ -44,6 +44,7 @@ dependencies:
    version: 1
    src:  htmlwidgets/lib/forester
    script: forester.js
+   stylesheet: forester.css
  - name: archaeopteryxJS
    version: 1
    src:  htmlwidgets/lib/archaeopteryxJS
