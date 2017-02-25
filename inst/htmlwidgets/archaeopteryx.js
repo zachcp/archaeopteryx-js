@@ -47,7 +47,7 @@ HTMLWidgets.widget({
         options.showDisributions = false;
         options.showExternalLabels = true;
         options.showExternalNodes = false;
-        options.showInternalLabels = true;
+        options.showInternalLabels = false;
         options.showInternalNodes = false;
         options.showNodeEvents = true;
         options.showNodeName = false;
