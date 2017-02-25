@@ -2,8 +2,8 @@
 #'
 #' use a phylogentic tree and a data.frame of information.
 #'
-#' @param phylo Required. A phylogenetic tree of class \link{[ape]{phylo}} or \link{[phylobase]{phylo4}}
-#' @param annotation Required. A \link{[data.table]{data.table}} of annotation information. If a data.table is provided
+#' @param phylo Required. A phylogenetic tree of class \code{\link[ape]{phylo}} or \code{\link[phylobase]{phylo4}}
+#' @param annotation Required. A \code{\link[data.table]{data.table}} of annotation information. If a data.table is provided
 #'    the first column must be the names of the tips of hte phylogenetic tree. The default value of "None" will allows you
 #'    to pass in a phylogentic tree but you will be limited in terms of the visualizations you can use.
 #'
