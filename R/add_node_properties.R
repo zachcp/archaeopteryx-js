@@ -20,21 +20,23 @@ add_node_properties <- function(phylogeny, properties) {
   # iterate over nodes and add all properties to each node.
   for (nodedf in nodedfs) {
     nodeid    <- unique(nodedf$node)
-    node      <- phylogeny$getNode(nodeid)
-    nodedata  <- node$getNodeData()
-    nodeprops <- nodedata$getProperties()
+    node      <- .jcall(phylogeny, "Lorg/forester/phylogeny/PhylogenyNode;", "getNode", nodeid)
+    nodedata  <- .jcall(node, "Lorg/forester/phylogeny/data/NodeData;", "getNodeData")
+    nodeprops <- .jcall(nodedata, "Lorg/forester/phylogeny/data/PropertiesMap;", "getProperties")
 
     if (is.null(nodeprops)) nodeprops <- new(pmap)
 
     mapply(function(property, value) {
-        p1 <- new(prop, paste0("ref:", property), as.character(value), "unit:string", "xsd:string" ,applyto)
-        nodeprops$addProperty(p1)
+        p1 <- new(prop, paste0("ref:", property), as.character(value), "unit:string", "xsd:string" , applyto)
+        .jcall(nodeprops, "V", "addProperty", p1)
+
       },
       nodedf$property,
       nodedf$value
   )
 
-  nodedata$setProperties(nodeprops)
+  .jcall(nodedata, "V", "setProperties", nodeprops)
+
   }
 
   phylogeny
