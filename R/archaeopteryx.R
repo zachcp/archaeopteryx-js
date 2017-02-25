@@ -19,15 +19,49 @@ archaeopteryx <- function(phyJ, width = NULL, height = NULL, elementId = NULL) {
   # annotate nodes
   phyJ <- annotate_tree(phyJ)
 
+  # nodeVisualizations['nodenum'] = {
+  #   label: 'nodenum',
+  #   description: 'the host of the virus',
+  #   field: null,
+  #   cladeRef: decorator + 'nodenum',
+  #   regex: false,
+  #   shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
+  #   colors: 'category20',
+  #   sizes: null
+  # };
+
+  nodeviz <- list()
+
+  nodeviz["nodenum"] <-
+    list(nodenum=list(
+      label="nodenum",
+      description="the host of the virus",
+      field=NULL,
+      cladeRef=paste0("ref:nodenum"),
+      regex = FALSE,
+      shapes =list('square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'),
+      colors = 'category20',
+      sizes = NULL))
+
+
+
+  #jsonlite::toJSON(nodeviz, auto_unbox = T, null = 'null')
+
+
+
   # forward options using x
-  x = list(
-    treestring=write_phyloXML(phyJ)
+  params = list(
+    treestring=write_phyloXML(phyJ),
+    nodevisualizations = nodeviz
   )
+
+  # customize toJSON() argument values
+  attr(params, 'TOJSON_ARGS') <- list(auto_unbox = TRUE, null = 'null')
 
   # create widget
   htmlwidgets::createWidget(
     name = 'archaeopteryx',
-    x,
+    x = params,
     width = width,
     height = height,
     package = 'archaeopteryx',

@@ -1,4 +1,4 @@
-var tre;
+var tre, prms;
 
 HTMLWidgets.widget({
 
@@ -13,6 +13,7 @@ HTMLWidgets.widget({
     return {
 
       renderValue: function(x) {
+        prms = x;
 
         var options = {};
         options.alignPhylogram = true;
@@ -85,18 +86,10 @@ HTMLWidgets.widget({
         // what is this decorator doing?
         var decorator = 'ref:';
 
-        var nodeVisualizations = {};
+        var nodeVisualizations = x.nodevisualizations;
 
-        nodeVisualizations['nodenum'] = {
-            label: 'nodenum',
-            description: 'the host of the virus',
-            field: null,
-            cladeRef: decorator + 'nodenum',
-            regex: false,
-            shapes: ['square', 'diamond', 'triangle-up', 'triangle-down', 'cross', 'circle'],
-            colors: 'category20',
-            sizes: null
-        };
+
+
 
 
         //tree = archaeopteryx.parseNewHampshire(x.treestring);
