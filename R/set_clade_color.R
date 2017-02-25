@@ -2,7 +2,7 @@
 #'
 #' given a nodeid and a java.awt.Color apply the color to all descendants
 #'
-#' @param phyJ Required. a \link{phyloJ} class object
+#' @param phyJ Required. a \code{\link{phyloJ}} class object
 #' @param nodeid Required. Name of a node.
 #' @param color Required. a java.awt.Color
 #'
@@ -14,13 +14,14 @@
 #'
 set_clade_color <- function(phyJ, nodeid, color) {
 
-  phyJtree   <- phyJ@phytreeJ
-  node       <- phyJtree$getNode(nodeid)
+  phyJtree  <- phyJ@phytreeJ
+  node      <- .jcall(phyJtree, "Lorg/forester/phylogeny/PhylogenyNode;", "getNode", nodeid)
+
 
   # apply color to node
   bcolor     <- .jnew("org/forester/phylogeny/data/BranchColor", color)
-  branchdata <- node$getBranchData()
-  branchdata$setBranchColor(bcolor)
+  branchdata <- .jcall(node, "Lorg/forester/phylogeny/data/BranchData;", "getBranchData")
+  .jcall(branchdata, "V", "setBranchColor", bcolor)
 
   # apply color to all descendants
   nodes    <- node$getAllDescendants()
@@ -28,7 +29,7 @@ set_clade_color <- function(phyJ, nodeid, color) {
 
   while(.jrcall(iternode,"hasNext")) {
     subnode    <- .jrcall(iternode,"next")
-    branchdata <- .jcall(subnode, "Lorg/forester/phylogeny/data/BranchData;","getBranchData")
+    branchdata <- .jcall(subnode, "Lorg/forester/phylogeny/data/BranchData;", "getBranchData")
     .jcall(branchdata, "V", "setBranchColor", bcolor)
 
   }

@@ -31,6 +31,24 @@ add_node_property <- function(phylogeny, nodeid, property, value) {
   nodeprops$addProperty(p1)
   nodedata$setProperties(nodeprops)
 
+  nodeid    <- unique(nodedf$node)
+  node      <- .jcall(phylogeny, "Lorg/forester/phylogeny/PhylogenyNode;", "getNode", nodeid)
+  nodedata  <- .jcall(node, "Lorg/forester/phylogeny/data/NodeData;", "getNodeData")
+  nodeprops <- .jcall(nodedata, "Lorg/forester/phylogeny/data/PropertiesMap;", "getProperties")
+
+  if (is.null(nodeprops)) nodeprops <- new(pmap)
+
+  mapply(function(property, value) {
+    p1 <- new(prop, paste0("ref:", property), as.character(value), "unit:string", "xsd:string" , applyto)
+    .jcall(nodeprops, "V", "addProperty", p1)
+
+  },
+  nodedf$property,
+  nodedf$value
+  )
+
+  .jcall(nodedata, "V", "setProperties", nodeprops)
+
   #return phylogeny to facilitate chaining
   phylogeny
 }

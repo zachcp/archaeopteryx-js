@@ -1,6 +1,6 @@
 #' decorate the phylogeny
 #'
-#' use forester's decorate code ot ad informaiton to the phlogeny
+#' use forester's decorate code to add information to the phylogeny
 #'
 #' @param phylogeny Required. A Forester Phylogeny Object
 #' @param metadata Required. Metadata table.
