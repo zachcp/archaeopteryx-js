@@ -23,6 +23,7 @@ add_node_properties <- function(phylogeny, properties) {
     node      <- phylogeny$getNode(nodeid)
     nodedata  <- node$getNodeData()
     nodeprops <- nodedata$getProperties()
+
     if (is.null(nodeprops)) nodeprops <- new(pmap)
 
     mapply(function(property, value) {

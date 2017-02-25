@@ -4,6 +4,9 @@
 #' @importClassesFrom data.table data.table
 #' @importClassesFrom rJava jobjRef
 #' @importClassesFrom phylobase phylo4
+#'
+#' @name phyloJ
+#' @rdname phyloJ-class
 #' @exportClass phyloJ
 #'
 setClass(Class="phyloJ",
