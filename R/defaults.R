@@ -53,7 +53,7 @@ get_default_options <- function() {
   options["showVisualizationsLegend"]     <- TRUE
   options["visualizationsLegendOrientation"]   <- 'vertical'
   options["visualizationsLegendXpos"]     <- 160
-  options["visualizationsLegendYpos"]     <-30
+  options["visualizationsLegendYpos"]     <- 30
 
   options
 }
