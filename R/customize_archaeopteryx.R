@@ -1,11 +1,12 @@
-#' set_archaeopteryx_options
+#' customize_archaeopteryx
 #'
 #'
 #' @param arch Required. An archaeopteryx htmlwidget
 #' @export
 #'
-set_archaeopteryx_options <- function(
+customize_archaeopteryx <- function(
   arch,
+  #options
   alignPhylogram  = NULL,
   backgroundColorDefault = NULL,
   branchColorDefault = NULL,
@@ -58,7 +59,23 @@ set_archaeopteryx_options <- function(
   showVisualizationsLegend = NULL,
   visualizationsLegendOrientation = NULL,
   visualizationsLegendXpos = NULL,
-  visualizationsLegendYpos = NULL) {
+  visualizationsLegendYpos = NULL,
+  # settings
+  border = NULL,
+  controls0Top = NULL,
+  controlsBackgroundColor  = NULL,
+  controlsFont = NULL,
+  controlsFontColor = NULL,
+  controlsFontSize = NULL,
+  enableDownloads = NULL,
+  enableBranchVisualizations = NULL,
+  enableCollapseByBranchLenghts = NULL,
+  enableCollapseByFeature = NULL,
+  enableNodeVisualizations = NULL,
+  nhExportWriteConfidences = NULL,
+  reCenterAfterCollapse = NULL,
+  rootOffset = NULL
+  ) {
 
   if (!is.null(alignPhylogram)) arch$x$options['alignPhylogram'] <- alignPhylogram
   if (!is.null(backgroundColorDefault)) arch$x$options['backgroundColorDefault'] <- backgroundColorDefault
@@ -112,6 +129,22 @@ set_archaeopteryx_options <- function(
   if (!is.null(visualizationsLegendOrientation)) arch$x$options['visualizationsLegendOrientation'] <- visualizationsLegendOrientation
   if (!is.null(visualizationsLegendXpos)) arch$x$options['visualizationsLegendXpos'] <- visualizationsLegendXpos
   if (!is.null(visualizationsLegendYpos)) arch$x$options['visualizationsLegendYpos'] <- visualizationsLegendYpos
+
+  #settings
+  if (!is.null(border)) arch$x$settings['border'] <- border
+  if (!is.null(controls0Top)) arch$x$settings['controls0Top'] <- controls0Top
+  if (!is.null(controlsBackgroundColor)) arch$x$settings['controlsBackgroundColor'] <- controlsBackgroundColor
+  if (!is.null(controlsFont)) arch$x$settings['controlsFont'] <- controlsFont
+  if (!is.null(controlsFontColor)) arch$x$settings['controlsFontColor'] <- controlsFontColor
+  if (!is.null(controlsFontSize)) arch$x$settings['controlsFontSize'] <- controlsFontSize
+  if (!is.null(enableDownloads)) arch$x$settings['enableDownloads'] <- enableDownloads
+  if (!is.null(enableBranchVisualizations)) arch$x$settings['enableBranchVisualizations'] <- enableBranchVisualizations
+  if (!is.null(enableCollapseByBranchLenghts)) arch$x$settings['enableCollapseByBranchLenghts'] <- enableCollapseByBranchLenghts
+  if (!is.null(enableCollapseByFeature)) arch$x$settings['enableCollapseByFeature'] <- enableCollapseByFeature
+  if (!is.null(enableNodeVisualizations)) arch$x$settings['enableNodeVisualizations'] <- enableNodeVisualizations
+  if (!is.null(nhExportWriteConfidences)) arch$x$settings['nhExportWriteConfidences'] <- nhExportWriteConfidences
+  if (!is.null(reCenterAfterCollapse)) arch$x$settings['reCenterAfterCollapse'] <- reCenterAfterCollapse
+  if (!is.null(rootOffset)) arch$x$settings['rootOffset'] <- rootOffset
 
   arch
 }
