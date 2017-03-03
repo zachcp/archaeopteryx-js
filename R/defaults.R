@@ -23,7 +23,7 @@ get_default_options <- function() {
   options["nameForSvgDownload"]           <- 'archaeopteryx-js.svg'
   options["nodeSizeDefault"]              <- 3
   options["nodeVisualizationsOpacity"]    <- 1.0
-  options["phylogram"]                    <- FALSE
+  options["phylogram"]                    <- TRUE
   options["searchIsCaseSensitive"]        <- FALSE
   options["searchIsPartial"]              <- TRUE
   options["searchUsesRegex"]              <- FALSE
@@ -33,8 +33,8 @@ get_default_options <- function() {
   options["showConfidenceValues"]         <- TRUE
   options["showDisributions"]             <- TRUE
   options["showExternalLabels"]           <- TRUE
-  options["showExternalNodes"]            <- FALSE
-  options["showInternalLabels"]           <- TRUE
+  options["showExternalNodes"]            <- TRUE
+  options["showInternalLabels"]           <- FALSE
   options["showInternalNodes"]            <- FALSE
   options["showNodeEvents"]               <- TRUE
   options["showNodeName"]                 <- TRUE
