@@ -3154,6 +3154,9 @@ if (!phyloXml) {
                         if (s.type) {
                             text += '- Type: ' + s.type + '<br>';
                         }
+                         if (s.mol_seq) {
+                            text += '- Sequence: ' + s.mol_seq.value + '<br>';
+                        }
                     }
                 }
                 if (n.distributions) {

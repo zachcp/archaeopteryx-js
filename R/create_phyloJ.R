@@ -3,15 +3,16 @@
 #' use a phylogentic tree and a data.frame of information.
 #'
 #' @param phylo Required. A phylogenetic tree of class \code{\link[ape]{phylo}} or \code{\link[phylobase]{phylo4}}
-#' @param annotation Required. A \code{\link[data.table]{data.table}} of annotation information. If a data.table is provided
+#' @param annotation Optional. A \code{\link[data.table]{data.table}} of annotation information. If a data.table is provided
 #'    the first column must be the names of the tips of hte phylogenetic tree. The default value of "None" will allows you
 #'    to pass in a phylogentic tree but you will be limited in terms of the visualizations you can use.
+#' @param seqs Optional. An \code{\link[Biostrings]{XStringSet}} object. Holds sequences for use in tree.
 #'
 #' @importFrom ape write.tree
 #' @importFrom ape makeNodeLabel
 #' @importFrom data.table data.table
 #' @export
-create_phyloJ <- function(phylo, annotation=NULL) {
+create_phyloJ <- function(phylo, annotation=NULL, seqs=NULL) {
 
   phylomessage <- "the phylo input must be a phylogenetic object of class 'phylo' or 'phylo4'"
   if (!class(phylo) %in% c("phylo", "phylo4")) stop(phylomessage)
@@ -41,6 +42,6 @@ create_phyloJ <- function(phylo, annotation=NULL) {
 
   phytreeJ <- parse_newick(write.tree(as(phylo, "phylo")))
 
-  new("phyloJ", phy_tree=phylo, phy_data=annotation, phytreeJ=phytreeJ)
+  new("phyloJ", phy_tree=phylo, phy_data=annotation, phytreeJ=phytreeJ, refseq=seqs)
 
 }
