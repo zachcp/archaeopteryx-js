@@ -29,6 +29,8 @@ HTMLWidgets.widget({
         tre  = tree;
         archaeopteryx.launch(el, tree, options=options, settings=settings, nodeVisualizations=nodeVisualizations);
 
+        // begin with the tree ordered
+        orderButtonPressed()
       },
 
       resize: function(width, height) {
