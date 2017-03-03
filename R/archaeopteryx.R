@@ -27,7 +27,7 @@ archaeopteryx <- function(phyJ, width = NULL, height = NULL, elementId = NULL) {
     width = width,
     height = height,
     options = get_default_options(),
-    settings = get_default_options()
+    settings = get_default_settings()
   )
 
   # customize toJSON() argument values

@@ -22,7 +22,7 @@ get_default_options <- function() {
   options["nameForPngDownload"]           <- 'archaeopteryx-js.png'
   options["nameForSvgDownload"]           <- 'archaeopteryx-js.svg'
   options["nodeSizeDefault"]              <- 8
-  options["nodeVisualizationsOpacity"]    <- 1.0
+  options["nodeVisualizationsOpacity"]    <- 0.5
   options["phylogram"]                    <- TRUE
   options["searchIsCaseSensitive"]        <- FALSE
   options["searchIsPartial"]              <- TRUE
@@ -46,7 +46,7 @@ get_default_options <- function() {
   options["showSequenceSymbol"]           <- TRUE
   options["showTaxonomy"]                 <- TRUE
   options["showTaxonomyCode"]             <- TRUE
-  options["showTaxonomyCommonName"]       <-TRUE
+  options["showTaxonomyCommonName"]       <- TRUE
   options["showTaxonomyRank"]             <- TRUE
   options["showTaxonomyScientificName"]   <- TRUE
   options["showTaxonomySynonyms"]         <- TRUE
@@ -59,6 +59,7 @@ get_default_options <- function() {
 }
 
 get_default_settings <- function() {
+  settings <- list()
   settings["border"]                        <- '1px solid #909090'
   settings["controls0Top"]                  <- 10
   settings["controlsBackgroundColor"]       <- '#e0e0e0'
@@ -66,7 +67,7 @@ get_default_settings <- function() {
   settings["controlsFontColor"]             <- '#505050'
   settings["controlsFontSize"]              <- 8
   settings["enableDownloads"]               <- TRUE
-  settings["enableBranchVisualizations"]    <- FALSE
+  settings["enableBranchVisualizations"]    <- TRUE
   settings["enableCollapseByBranchLengths"] <- FALSE
   settings["enableCollapseByFeature"]       <- TRUE
   settings["enableNodeVisualizations"]      <- TRUE
