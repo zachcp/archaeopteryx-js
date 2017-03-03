@@ -26,7 +26,7 @@ A few thoughts on how to improve this code (no guarantees):
 - If we want to have multiple trees on an RMD page, the DOM elements need to be labelled in the RMB code using htmlwidget tags.
 - To do this is not-trivial since the code names are hardcoded in the archeompertyx.js code and at first look they do not seem to be replaces usign the `options` or `settings` features that allow you to customize the chart.
 - provide access to some reasonably complete set of options that can be passed to users.
-- right now newick strings are passed/parsed. Can a direct JSON blob be transferred in order to save the encode/decode step? THis would also allow us to adorn information on each node.
+- right now newick strings are passed/parsed. Can a direct JSON blob be transferred in order to save the encode/decode step? This would also allow us to adorn information on each node.
 - be able to specify per-node attributes - which measn being able to pass in the information and using an API to modify the nodes.
 
 
@@ -38,10 +38,46 @@ A few thoughts on how to improve this code (no guarantees):
 library(archaeopteryx)
 library(ape)
 library(data.table)
+library(Biostrings)
 
 tree <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
-phyJ <- create_phyloJ(tree)
+
+dna1 <- DNAStringSet(c("AAA","CCC","TTT","TTG","GTG"))
+names(dna1) <- c("mammal", "turtle", "rayfinfish", "frog", "salamander")
+phyJ <- create_phyloJ(phylo = tree, seqs = dna1)
+phyJ <- add_sequences(phyJ)
+#phyJ
+
 archaeopteryx(phyJ)
+
+phyJtree <- phyJ@phytreeJ
+
+trt     <- phyJtree$getNode("turtle")
+trtdata <- trt$getNodeData()
+
+.jmethods(trtdata)
+trtdata$addSequence(new(ss, new(ms)))
+
+trtdata$addSeq
+
+ss  <- J("org.forester.phylogeny.data.Sequence")
+ms  <- J("org.forester.sequence.MolecularSequence")
+msn  <- new(ms)
+.jmethods(ms)
+bs  <- J("org.forester.sequence.BasicSequence")
+dna <- ms$TYPE$DNA
+basic_sequence <- new(bs, "newstring", "AAACACACC", dna)
+basic_sequence
+.jclass(baseenv())
+new(ss, new(ms))
+
+trtdata$addSequence(basic_sequence)
+.jmethods(trtdata)
+J("org.forester.phylogeny.data.NodeData")
+
+org.forester.sequence
+
+
 ```
 
 

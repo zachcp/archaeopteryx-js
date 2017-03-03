@@ -2,14 +2,14 @@
 get_default_options <- function() {
   options <- list()
   options["alignPhylogram"]               <- TRUE
-  options["backgroundColorDefault"]       <- '#f0f0f0'
+  options["backgroundColorDefault"]       <- '##FFFFFF'
   options["branchColorDefault"]           <- '#909090'
   options["branchDataFontSize"]           <-  6
-  options["branchWidthDefault"]           <-  1
+  options["branchWidthDefault"]           <-  2
   options["collapsedLabelLength"]         <-  7
   options["defaultFont"]                  <- 'Times'
   options["dynahide"]                     <- TRUE
-  options["externalNodeFontSize"]         <-  10
+  options["externalNodeFontSize"]         <-  12
   options["found0and1ColorDefault"]       <- '#0000ff'
   options["found0ColorDefault"]           <- '#00ff00'
   options["found1ColorDefault"]           <- '#ff0000'
@@ -21,7 +21,7 @@ get_default_options <- function() {
   options["nameForPhyloXmlDownload"]      <- 'archaeopteryx-js.xml'
   options["nameForPngDownload"]           <- 'archaeopteryx-js.png'
   options["nameForSvgDownload"]           <- 'archaeopteryx-js.svg'
-  options["nodeSizeDefault"]              <- 3
+  options["nodeSizeDefault"]              <- 8
   options["nodeVisualizationsOpacity"]    <- 1.0
   options["phylogram"]                    <- TRUE
   options["searchIsCaseSensitive"]        <- FALSE
@@ -39,7 +39,7 @@ get_default_options <- function() {
   options["showNodeEvents"]               <- TRUE
   options["showNodeName"]                 <- TRUE
   options["showNodeVisualizations"]       <- TRUE
-  options["showSequence"]                 <- TRUE
+  options["showSequence"]                 <- FALSE
   options["showSequenceAccession"]        <- TRUE
   options["showSequenceGeneSymbol"]       <- TRUE
   options["showSequenceName"]             <- TRUE
