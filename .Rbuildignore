@@ -2,3 +2,9 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
+^\.Rproj\.user$
+^target$
+^README\.markdown$
+^run_all_tests\.R$
+^LICENSE$
+^Makefile$
