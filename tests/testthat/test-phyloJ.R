@@ -14,6 +14,12 @@ test_that("PhyloJ objects can be created correctly", {
   expect_is(phyJ@phytreeJ, "jobjRef")
   expect_equal(rJava::.jclass(phyJ@phytreeJ), "org.forester.phylogeny.Phylogeny")
 
-})
+  phyJtree <- phyJ@phytreeJ
+  trt      <- phyJtree$getNode("turtle")
+  expect_equal(rJava::.jclass(trt), "org.forester.phylogeny.PhylogenyNode")
 
+  trtdata  <- trt$getNodeData()
+  expect_equal(rJava::.jclass(trtdata), "org.forester.phylogeny.data.NodeData")
+
+})
 
