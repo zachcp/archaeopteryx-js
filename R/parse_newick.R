@@ -4,6 +4,6 @@
 #' @param newick Required. A Newick string to parse into a Phylogeny object.
 #' @export
 parse_newick <- function(newick) {
-  phylo  <- .jcall("org/forester/phylogeny/Phylogeny", "Lorg/forester/phylogeny/Phylogeny;", "createInstanceFromNhxString", newick)
-  phylo
+  phylo <- J("org/forester/phylogeny/Phylogeny")
+  phylo$createInstanceFromNhxString(newick)
 }
