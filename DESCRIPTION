@@ -3,7 +3,7 @@ Title: Interactive Phylogenetic Trees using Archeopteryx.JS
 Version: 0.0.7
 Authors@R: person("zachary", "charlop-powers", email = "zach.charlop.powers@gmail.com", role = c("aut", "cre"))
 Description: Create interactive phylogenetic trees using the archeopteryx JS library.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
@@ -19,10 +19,7 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    Biostrings
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 5.0.1
+    Biostrings,
+    testthat
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
-

@@ -41,7 +41,6 @@ library(data.table)
 library(Biostrings)
 
 tree <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
-
 dna1 <- DNAStringSet(c("AAA","CCC","TTT","TTG","GTG"))
 names(dna1) <- c("mammal", "turtle", "rayfinfish", "frog", "salamander")
 phyJ <- create_phyloJ(phylo = tree, seqs = dna1)
