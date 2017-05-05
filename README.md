@@ -4,6 +4,14 @@ archaeopteryx
 
 The goal of archaeopteryx is to wrap the wonderful [archaeopteryx.js](https://sites.google.com/site/cmzmasek/home/software/archaeopteryx-js) library and make it accessible as an htmlwidget. Currently the basics work but I will be exploring changes to the API to try to make it work with R's pipe-based workflow.
 
+Install
+-------
+
+``` r
+require(devtools)
+devtools::install_github("zachcp/archaeopteryx-js")
+```
+
 Mini Roadmap
 ------------
 
@@ -13,7 +21,7 @@ A few thoughts on how to improve this code (no guarantees):
 -   If we want to have multiple trees on an RMD page, the DOM elements need to be labelled in the RMB code using htmlwidget tags.
 -   To do this is not-trivial since the code names are hardcoded in the archeompertyx.js code and at first look they do not seem to be replaces usign the `options` or `settings` features that allow you to customize the chart.
 -   provide access to some reasonably complete set of options that can be passed to users.
--   right now newick strings are passed/parsed. Can a direct JSON blob be transferred in order to save the encode/decode step? THis would also allow us to adorn information on each node.
+-   right now newick strings are passed/parsed. Can a direct JSON blob be transferred in order to save the encode/decode step? This would also allow us to adorn information on each node.
 -   be able to specify per-node attributes - which measn being able to pass in the information and using an API to modify the nodes.
 
 Simple Usage.
@@ -22,5 +30,55 @@ Simple Usage.
 ``` r
 ## basic example code
 library(archaeopteryx)
-archaeopteryx(treestring = "((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700,seal:12.00300):7.
+library(ape)
+library(data.table)
+library(Biostrings)
+
+tree <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
+dna1 <- DNAStringSet(c("AAA","CCC","TTT","TTG","GTG"))
+names(dna1) <- c("mammal", "turtle", "rayfinfish", "frog", "salamander")
+phyJ <- create_phyloJ(phylo = tree, seqs = dna1)
+phyJ <- add_sequences(phyJ)
+
+archaeopteryx(phyJ)
+```
+
+Color SubClades
+===============
+
+``` r
+
+t1   <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
+dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), 
+                   size=c(1,2,3,4,5),
+                   scale = c("a","b","c","d","d"))
+
+red      <- J("java.awt.Color")$RED
+phyJ     <- create_phyloJ(phylo=t1, annotation=dt)
+mrca     <- get_MRCA(phyJ, tips=c("frog", "turtle"))
+set_clade_color(phyJ, mrca, red)
+archaeopteryx(phyJ)
+```
+
+Color Multiple SubClades
+========================
+
+``` r
+data(bird.families)
+phyJ <- create_phyloJ(bird.families)
+mrca1 <- get_MRCA(phyJ, c("Pardalotidae", "Centropidae"))
+mrca2 <- get_MRCA(phyJ, c("Laridae", "Thinocoridae"))
+red     <- J("java.awt.Color")$RED
+blue    <- J("java.awt.Color")$BLUE
+set_clade_color(phyJ, mrca1, red)
+set_clade_color(phyJ, mrca2, blue)
+archaeopteryx(phyJ)
+```
+
+``` r
+annotdt <- data.table(nodes=bird.families$tip.label)
+annotdt[, alph := .(substr(nodes,start = 1, stop=1))]
+annotdt
+phyJ <- create_phyloJ(bird.families, annotation = annotdt)
+archaeopteryx(phyJ)
 ```

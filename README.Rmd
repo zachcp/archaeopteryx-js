@@ -18,6 +18,12 @@ knitr::opts_chunk$set(
 
 The goal of archaeopteryx is to wrap the wonderful [archaeopteryx.js](https://sites.google.com/site/cmzmasek/home/software/archaeopteryx-js) library and make it accessible as an htmlwidget. Currently the basics work but I will be exploring changes to the API to try to make it work with R's pipe-based workflow.
 
+## Install
+```{r, eval=FALSE}
+require(devtools)
+devtools::install_github("zachcp/archaeopteryx-js")
+```
+
 ## Mini Roadmap
 
 A few thoughts on how to improve this code (no guarantees):
@@ -45,43 +51,17 @@ dna1 <- DNAStringSet(c("AAA","CCC","TTT","TTG","GTG"))
 names(dna1) <- c("mammal", "turtle", "rayfinfish", "frog", "salamander")
 phyJ <- create_phyloJ(phylo = tree, seqs = dna1)
 phyJ <- add_sequences(phyJ)
-#phyJ
 
 archaeopteryx(phyJ)
-
-phyJtree <- phyJ@phytreeJ
-
-trt     <- phyJtree$getNode("turtle")
-trtdata <- trt$getNodeData()
-
-.jmethods(trtdata)
-trtdata$addSequence(new(ss, new(ms)))
-
-trtdata$addSeq
-
-ss  <- J("org.forester.phylogeny.data.Sequence")
-ms  <- J("org.forester.sequence.MolecularSequence")
-msn  <- new(ms)
-.jmethods(ms)
-bs  <- J("org.forester.sequence.BasicSequence")
-dna <- ms$TYPE$DNA
-basic_sequence <- new(bs, "newstring", "AAACACACC", dna)
-basic_sequence
-.jclass(baseenv())
-new(ss, new(ms))
-
-trtdata$addSequence(basic_sequence)
-.jmethods(trtdata)
-J("org.forester.phylogeny.data.NodeData")
-
-org.forester.sequence
-
 
 ```
 
 
-```{r}
-t1   <- read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
+# Color SubClades
+
+```{r, eval=FALSE}
+
+t1   <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
 dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), 
                    size=c(1,2,3,4,5),
                    scale = c("a","b","c","d","d"))
@@ -95,7 +75,9 @@ archaeopteryx(phyJ)
 ```
 
 
-```{r}
+# Color Multiple SubClades
+
+```{r, eval=FALSE}
 data(bird.families)
 phyJ <- create_phyloJ(bird.families)
 mrca1 <- get_MRCA(phyJ, c("Pardalotidae", "Centropidae"))
@@ -107,7 +89,8 @@ set_clade_color(phyJ, mrca2, blue)
 archaeopteryx(phyJ)
 ```
 
-```{r}
+
+```{r, eval=FALSE}
 annotdt <- data.table(nodes=bird.families$tip.label)
 annotdt[, alph := .(substr(nodes,start = 1, stop=1))]
 annotdt
