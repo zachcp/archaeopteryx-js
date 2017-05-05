@@ -40,6 +40,15 @@ create_phyloJ <- function(phylo, annotation=NULL, seqs=NULL) {
     phylo <- as(phylo, "phylo4")
   }
 
+
+  if (!is.null(seqs)) {
+    for (name in names(seqs)) {
+     if (!name %in% phylobase::tipLabels(phylo)) {
+       stop('DNA reference names do not match phylogenetic tree tips')
+     }
+    }
+  }
+
   phytreeJ <- parse_newick(write.tree(as(phylo, "phylo")))
 
   new("phyloJ", phy_tree=phylo, phy_data=annotation, phytreeJ=phytreeJ, refseq=seqs)

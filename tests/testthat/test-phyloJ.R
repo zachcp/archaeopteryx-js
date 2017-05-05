@@ -23,6 +23,17 @@ test_that("PhyloJ objects can be created correctly", {
 
 })
 
+test_that("Inccorrect Sequence Names are caught", {
+
+  tree <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
+  seqs <- c("AAA","CCC","TTT","TTG","GTG")
+  dna  <- Biostrings::DNAStringSet(seqs)
+  names(dna) <- c("mammal1", "turtle2", "rayfinfish3", "frog4", "salamander4")
+
+  # mismatched labels between DNA and Tree
+  expect_error(create_phyloJ(phylo = tree, seqs = dna))
+})
+
 
 test_that("Adding Sequence data to phyloXML outputs", {
 
