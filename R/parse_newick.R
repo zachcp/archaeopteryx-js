@@ -1,9 +1,9 @@
 #' parse_newick
 #'
-#' take a newick stirng and parse int o a Phylogeny object.
+#' take a newick string and parse into a Phylogeny object.
 #' @param newick Required. A Newick string to parse into a Phylogeny object.
 #' @export
 parse_newick <- function(newick) {
-  phylo <- J("org/forester/phylogeny/Phylogeny")
-  phylo$createInstanceFromNhxString(newick)
+  phylo  <- .jcall("org/forester/phylogeny/Phylogeny", "Lorg/forester/phylogeny/Phylogeny;", "createInstanceFromNhxString", newick)
+  phylo
 }
