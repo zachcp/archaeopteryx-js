@@ -19,8 +19,8 @@
  *
  */
 
-// v 1_00
-// 2017-01-30
+// v 1_01
+// 2017-05-09
 
 // Developer documentation:
 // https://docs.google.com/document/d/1COVe0iYbKtcBQxGTP4_zuimpk2FH9iusOVOgd5xCJ3A
@@ -44,7 +44,7 @@ if (!phyloXml) {
 
     "use strict";
 
-    var VERSION = '1.00';
+    var VERSION = '1.01';
     var WEBSITE = 'https://docs.google.com/document/d/16PjoaNeNTWPUNVGcdYukP6Y1G35PFhq39OiIMmD03U8';
     var NAME = 'Archaeopteryx.js';
     var PROG_NAME = 'progname';
@@ -2907,7 +2907,11 @@ if (!phyloXml) {
         if (!_settings.controlsBackgroundColor) {
             _settings.controlsBackgroundColor = CONTROLS_BACKGROUND_COLOR_DEFAULT;
         }
-        if (!_settings.controls0Left) {
+        if (!_settings.controls0) {
+            _settings.controls0 = CONTROLS_0;
+            console.log('   controls0   : ' + _settings.controls0);
+        }
+		if (!_settings.controls0Left) {
             _settings.controls0Left = CONTROLS_0_LEFT_DEFAULT;
             console.log('   controls0Left   : ' + _settings.controls0Left);
         }
@@ -2916,6 +2920,10 @@ if (!phyloXml) {
         }
         if (!_settings.controls1Top) {
             _settings.controls1Top = CONTROLS_1_TOP_DEFAULT;
+        }
+        if (!_settings.controls1) {
+            _settings.controls1 = CONTROLS_1;
+            console.log('   controls1   : ' + _settings.controls1);
         }
         if (!_settings.controls1Left) {
             _settings.controls1Left = _settings.displayWidth - CONTROLS_1_WIDTH;
@@ -3040,10 +3048,9 @@ if (!phyloXml) {
         return phyloXml.parse(data, {trim: true, normalize: true})[0]
     };
 
-    archaeopteryx.parseNewHampshire = function (data) {
-        return forester.parseNewHampshire(data);
+    archaeopteryx.parseNewHampshire = function (data, confidenceValuesInBrackets, confidenceValuesAsInternalNames) {
+        return forester.parseNewHampshire(data, confidenceValuesInBrackets, confidenceValuesAsInternalNames);
     };
-
 
     function calcMaxExtLabel() {
         _maxLabelLength = _options.nodeLabelGap;
@@ -3153,9 +3160,6 @@ if (!phyloXml) {
                         }
                         if (s.type) {
                             text += '- Type: ' + s.type + '<br>';
-                        }
-                         if (s.mol_seq) {
-                            text += '- Sequence: ' + s.mol_seq.value + '<br>';
                         }
                     }
                 }
@@ -3654,14 +3658,14 @@ if (!phyloXml) {
             legendReset();
         }
         zoomFit();
-        var c0 = $('#' + CONTROLS_0);
+        var c0 = $('#' + _settings.controls0);
         if (c0) {
             c0.css({
                 'left': _settings.controls0Left,
                 'top': _settings.controls0Top + _offsetTop
             });
         }
-        var c1 = $('#' + CONTROLS_1);
+        var c1 = $('#' + _settings.controls1);
         if (c1) {
             c1.css({
                 'left': _settings.controls1Left,
@@ -4083,7 +4087,7 @@ if (!phyloXml) {
         }
 
 
-        var c0 = $('#' + CONTROLS_0);
+        var c0 = $('#' + _settings.controls0);
 
         if (c0) {
             c0.css({
@@ -4192,7 +4196,7 @@ if (!phyloXml) {
             }
         }
 
-        var c1 = $('#' + CONTROLS_1);
+        var c1 = $('#' + _settings.controls1);
         if (c1) {
             c1.css({
                 'position': 'absolute',
