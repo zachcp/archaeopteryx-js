@@ -39,7 +39,7 @@ A few thoughts on how to improve this code (no guarantees):
 ## Simple Usage.
 
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ## basic example code
 library(archaeopteryx)
 library(ape)
@@ -59,7 +59,7 @@ archaeopteryx(phyJ)
 
 # Color SubClades
 
-```{r, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 
 t1   <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
 dt   <- data.table(nodes=c("mammal","turtle","rayfinfish","frog","salamander"), 
@@ -77,7 +77,7 @@ archaeopteryx(phyJ)
 
 # Color Multiple SubClades
 
-```{r, eval=FALSE}
+```{r, warning=FALSE, message=FALSE}
 
 data(bird.families)
 phyJ <- create_phyloJ(bird.families)
@@ -85,8 +85,8 @@ mrca1 <- get_MRCA(phyJ, c("Pardalotidae", "Centropidae"))
 mrca2 <- get_MRCA(phyJ, c("Laridae", "Thinocoridae"))
 red     <- J("java.awt.Color")$RED
 blue    <- J("java.awt.Color")$BLUE
-set_clade_color(phyJ, mrca1, red)
-set_clade_color(phyJ, mrca2, blue)
+phyJ <- set_clade_color(phyJ, mrca1, red)
+phyJ <- set_clade_color(phyJ, mrca2, blue)
 archaeopteryx(phyJ)
 ```
 
