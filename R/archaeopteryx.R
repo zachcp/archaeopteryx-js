@@ -76,7 +76,9 @@ renderArchaeopteryx <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 archaeopteryx_html <- function(id, style, class, width, height, ...) {
   list(tags$div(id = id, class = class, style = style),
-       tags$div(id = "controls0", class='ui-widget-content'),
-       tags$div(id = "controls1", class='ui-widget-content'))
+       tags$div(id = sprintf("%s-controls0", id), class='ui-widget-content'),
+       tags$div(id = sprintf("%s-controls1", id), class='ui-widget-content'))
 }
+
+
 
