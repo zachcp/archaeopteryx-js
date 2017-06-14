@@ -2,9 +2,9 @@
 .onLoad <- function(lib, pkg) {
   ## Initilize JVM and add all jar files in the "java" directory
   ## to the classpath. The "java" directory is where jar files are copied to
-  ## from "inst/JARs" directory in the binary package version of the project.
+  ## from "inst/java" directory in the binary package version of the project.
   rJava::.jpackage(pkg, lib.loc = lib)
-  ## Add all jar files in the "inst/java" directory to the classpath as
+   ## Add all jar files in the "inst/java" directory to the classpath as
   ## well. This is a kind of workaround for the source package and
   ## bundle package version of the project where jar files are in
   ## "inst/java" directory.
@@ -16,5 +16,6 @@
   ## third-party code when it is already installed in the system.
   ## It is not needed in these cases because the binary package directory
   ## structure is used.
-  rJava::.jaddClassPath(dir(file.path(getwd(), "inst/JARs"), full.names = TRUE))
+  rJava::.jaddClassPath(dir(file.path(getwd(), "inst/java"), full.names = TRUE))
+
 }
