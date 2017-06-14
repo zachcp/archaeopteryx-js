@@ -25,6 +25,8 @@ archaeopteryx <- function(phyJ, width = NULL, height = NULL, elementId = NULL) {
   params = list(
     treestring = write_phyloXML(phyJ),
     nodevisualizations = nodeviz,
+    maincontrols = "hidden",
+    colorcontrols = "hidden",
     width = width,
     height = height,
     options = get_default_options(),
@@ -77,8 +79,9 @@ renderArchaeopteryx <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 archaeopteryx_html <- function(id, style, class, width, height, ...) {
   list(tags$div(id = id, class = class, style = style),
-       tags$div(id = sprintf("%s-controls0", id), class='ui-widget-content'),
-       tags$div(id = sprintf("%s-controls1", id), class='ui-widget-content'))
+       tags$div(id = sprintf("%s-controls0", id), style='visibility:hidden;', class='ui-widget-content'),
+       tags$div(id = sprintf("%s-controls1", id), style='visibility:hidden;', class='ui-widget-content'))
+
 }
 
 
