@@ -3152,6 +3152,9 @@ if (!phyloXml) {
                         if (s.name) {
                             text += '- Name: ' + s.name + '<br>';
                         }
+                        if (s.mol_seq) {
+                            text += '- Sequence: ' + s.mol_seq.value + '<br>';
+                        }
                         if (s.gene_name) {
                             text += '- Gene name: ' + s.gene_name + '<br>';
                         }
