@@ -5,14 +5,13 @@
 #' @param arch Required.
 #' @param control Optional. Default \code{"maincontrols"}. Can be either "maincontrols or "colorcontrols".
 #' @export
-add_controls <- function(arch, control="maincontrols") {
+add_controls <- function(arch, controls="maincontrols") {
 
-  if (control == "maincontrols") {
+  if (controls == "maincontrols") {
 
     arch$x$maincontrols <- "visible"
-    print("makign visible")
 
-  } else if (control == "colorcontrols") {
+  } else if (controls == "colorcontrols") {
 
     arch$x$colorcontrols <- "visible"
 
