@@ -16,12 +16,10 @@ HTMLWidgets.widget({
         prms = x;
         var options = x.options;
         var settings = x.settings;
-        //settings["displayHeight"] = x.height
-        //settings["displayWidth "] = x.width
-        settings["controls0"]     = el.id + "-controls0"
-        settings["controls1"]     = el.id + "-controls1"
-
-
+        settings.displayHeight = height
+        settings.displayWidth  = width
+        settings["controls0"]  = el.id + "-controls0"
+        settings["controls1"]  = el.id + "-controls1"
 
         // what is this decorator doing?
         var decorator = 'ref:';

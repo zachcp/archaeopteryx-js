@@ -1,6 +1,6 @@
 #' add_sequences
 #'
-#' add sequence data to your archaeoptreeyx sequences.
+#' add sequence data to your archaeopteryx sequences.
 #'
 #' @param phyJ Required. A \link{phyloJ} object.
 #'

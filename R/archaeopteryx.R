@@ -17,6 +17,7 @@ archaeopteryx <- function(phyJ, width = NULL, height = NULL, elementId = NULL) {
   if (!inherits(phyJ, "phyloJ")) stop("you must use a phyloJ object to use this function")
 
   # annotate nodes and create corresponding node vizualizations
+
   phyJ    <- annotate_tree(phyJ)
   nodeviz <- create_node_visualizations(phyJ)
 
