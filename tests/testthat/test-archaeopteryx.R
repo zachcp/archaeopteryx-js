@@ -14,7 +14,7 @@ test_that("Archaeopteryx returns an htmlwidget", {
 
 
 test_that("Archaeopteryx returns a widget when coloring multiple subclades", {
-
+  library(ape)
   data(bird.families)
   phyJ  <- create_phyloJ(bird.families)
   mrca1 <- get_MRCA(phyJ, c("Pardalotidae", "Centropidae"))
