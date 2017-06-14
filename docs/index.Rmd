@@ -45,6 +45,7 @@ library(archaeopteryx)
 library(ape)
 library(data.table)
 library(Biostrings)
+library(magrittr)
 
 tree <- ape::read.tree(text="(mammal,(turtle,rayfinfish,(frog,salamander)));")
 dna1 <- DNAStringSet(c("AAA","CCC","TTT","TTG","GTG"))
@@ -52,11 +53,23 @@ names(dna1) <- c("mammal", "turtle", "rayfinfish", "frog", "salamander")
 phyJ <- create_phyloJ(phylo = tree, seqs = dna1)
 phyJ <- add_sequences(phyJ)
 
-archaeopteryx(phyJ)
+
+arch <- archaeopteryx(phyJ, width=910, height=400)
+arch
 
 ```
+```{r}
+phyJ <- create_phyloJ(phylo = tree, seqs = dna1)
+phyJ <- add_sequences(phyJ)
+arch <- archaeopteryx(phyJ, width=910, height=400)
+arch %>% add_controls()
+```
 
-
+```{r}
+arch %>% 
+  add_controls(controls="maincontrols") %>%
+  add_controls(controls="colorcontrols")
+```
 # Color SubClades
 
 ```{r, warning=FALSE, message=FALSE}
@@ -80,7 +93,7 @@ archaeopteryx(phyJ)
 ```{r, warning=FALSE, message=FALSE}
 
 data(bird.families)
-phyJ <- create_phyloJ(bird.families)
+phyJ <-  create_phyloJ(bird.families)
 mrca1 <- get_MRCA(phyJ, c("Pardalotidae", "Centropidae"))
 mrca2 <- get_MRCA(phyJ, c("Laridae", "Thinocoridae"))
 red     <- J("java.awt.Color")$RED
