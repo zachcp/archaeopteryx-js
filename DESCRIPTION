@@ -1,6 +1,6 @@
 Package: archaeopteryx
 Title: Interactive Phylogenetic Trees using Archeopteryx.JS
-Version: 0.0.9
+Version: 0.0.10
 Authors@R: person("zachary", "charlop-powers", email = "zach.charlop.powers@gmail.com", role = c("aut", "cre"))
 Description: Create interactive phylogenetic trees using the archeopteryx JS library.
 License: MIT + file LICENSE
